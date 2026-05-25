@@ -1,0 +1,40 @@
+def show_all_books():
+    books = load_books()
+    print("\n--- Список всех книг ---")
+    if not books:
+        print("Ваш трекер пока пуст.")
+        return
+
+    for idx, book in enumerate(books, start=1):
+        print(
+            f"{idx}. {book['author']} — «{book['title']}» | Оценка: {book['rating']}/5 | Дата: {book['date_read']}"
+        )
+
+
+def show_average_rating():
+    books = load_books()
+    print("\n--- Средняя оценка ---")
+    if not books:
+        print("Нет книг для расчета средней оценки.")
+        return
+
+    total_rating = sum(book["rating"] for book in books)
+    avg_rating = total_rating / len(books)
+    print(
+        f"Всего книг: {len(books)}. Средняя оценка всех прочитанных книг: {avg_rating:.2f}"
+    )
+
+
+def show_author_stats():
+    books = load_books()
+    print("\n--- Статистика по авторам ---")
+    if not books:
+        print("Нет данных для составления статистики.")
+        return
+
+    stats = defaultdict(int)
+    for book in books:
+        stats[book["author"]] += 1
+
+    for author, count in stats.items():
+        print(f"Автор: {author} — Прочитано книг: {count}")
