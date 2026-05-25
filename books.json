@@ -1,1 +1,15 @@
+import json
+import os
+from collections import defaultdict
 
+FILENAME = "books.json"
+
+
+def load_books():
+    if not os.path.exists(FILENAME):
+        return []
+    try:
+        with open(FILENAME, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return []
